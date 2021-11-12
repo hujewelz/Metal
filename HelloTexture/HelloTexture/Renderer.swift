@@ -30,10 +30,10 @@ class Renderer: NSObject {
     }
     
     private var vertices: [Vertex] = [
-        .init(position: vector_float3(-1, 1, 0)), // v0
-        .init(position: vector_float3(-1, -1, 0)), // v1
-        .init(position: vector_float3(1, -1, 0)), // v2
-        .init(position: vector_float3(1, 1, 0)), // v3
+        .init(position: vector_float3(-1, 1, 0), color: vector_float4(1, 0, 0, 1)), // v0
+        .init(position: vector_float3(-1, -1, 0), color: vector_float4(0, 1, 0, 1)), // v1
+        .init(position: vector_float3(1, -1, 0), color: vector_float4(0, 0, 1, 1)), // v2
+        .init(position: vector_float3(1, 1, 0), color: vector_float4(1, 0, 1, 1)), // v3
     ]
     
     private var indices: [UInt16] = [
@@ -59,6 +59,18 @@ class Renderer: NSObject {
         pipelineDescriptor.vertexFunction = vertexFunction
         pipelineDescriptor.fragmentFunction = fragmentFunction
         pipelineDescriptor.colorAttachments[0].pixelFormat = view.colorPixelFormat
+        
+        let vertexDescriptor = MTLVertexDescriptor()
+        vertexDescriptor.attributes[0].format = .float3
+        vertexDescriptor.attributes[0].bufferIndex = 0
+        vertexDescriptor.attributes[0].offset = 0
+        vertexDescriptor.attributes[1].format = .float4
+        vertexDescriptor.attributes[1].offset = MemoryLayout<vector_float3>.stride
+        vertexDescriptor.attributes[1].bufferIndex = 0
+        
+        vertexDescriptor.layouts[0].stride = MemoryLayout<Vertex>.stride
+        
+        pipelineDescriptor.vertexDescriptor = vertexDescriptor
         
         do {
             pipepineState = try device.makeRenderPipelineState(descriptor: pipelineDescriptor)
