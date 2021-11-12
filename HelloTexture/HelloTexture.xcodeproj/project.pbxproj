@@ -14,6 +14,8 @@
 		C2BA318F273DFE4A009A2FF7 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA318E273DFE4A009A2FF7 /* Renderer.swift */; };
 		C2BA3191273DFFCC009A2FF7 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA3190273DFFCC009A2FF7 /* Types.swift */; };
 		C2BA3193273E0503009A2FF7 /* Shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = C2BA3192273E0503009A2FF7 /* Shader.metal */; };
+		C2BA3195273E0AB4009A2FF7 /* Texturable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA3194273E0AB4009A2FF7 /* Texturable.swift */; };
+		C2BA3198273E1817009A2FF7 /* hero.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C2BA3197273E1817009A2FF7 /* hero.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		C2BA318E273DFE4A009A2FF7 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		C2BA3190273DFFCC009A2FF7 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		C2BA3192273E0503009A2FF7 /* Shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shader.metal; sourceTree = "<group>"; };
+		C2BA3194273E0AB4009A2FF7 /* Texturable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texturable.swift; sourceTree = "<group>"; };
+		C2BA3197273E1817009A2FF7 /* hero.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hero.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,7 @@
 		C2BA317E273DFD2F009A2FF7 /* HelloTexture */ = {
 			isa = PBXGroup;
 			children = (
+				C2BA3196273E1809009A2FF7 /* images */,
 				C2BA317F273DFD2F009A2FF7 /* AppDelegate.swift */,
 				C2BA3181273DFD2F009A2FF7 /* ViewController.swift */,
 				C2BA318E273DFE4A009A2FF7 /* Renderer.swift */,
@@ -66,8 +71,17 @@
 				C2BA3185273DFD31009A2FF7 /* Main.storyboard */,
 				C2BA3188273DFD31009A2FF7 /* HelloTexture.entitlements */,
 				C2BA3192273E0503009A2FF7 /* Shader.metal */,
+				C2BA3194273E0AB4009A2FF7 /* Texturable.swift */,
 			);
 			path = HelloTexture;
+			sourceTree = "<group>";
+		};
+		C2BA3196273E1809009A2FF7 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				C2BA3197273E1817009A2FF7 /* hero.jpg */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2BA3184273DFD31009A2FF7 /* Assets.xcassets in Resources */,
+				C2BA3198273E1817009A2FF7 /* hero.jpg in Resources */,
 				C2BA3187273DFD31009A2FF7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2BA3182273DFD2F009A2FF7 /* ViewController.swift in Sources */,
+				C2BA3195273E0AB4009A2FF7 /* Texturable.swift in Sources */,
 				C2BA318F273DFE4A009A2FF7 /* Renderer.swift in Sources */,
 				C2BA3180273DFD2F009A2FF7 /* AppDelegate.swift in Sources */,
 				C2BA3193273E0503009A2FF7 /* Shader.metal in Sources */,

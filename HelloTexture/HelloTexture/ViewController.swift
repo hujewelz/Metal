@@ -20,7 +20,7 @@ class ViewController: NSViewController {
         mtkView.device = MTLCreateSystemDefaultDevice()
         mtkView.clearColor = MTLClearColor(red: 0.1, green: 0.2, blue: 0.3, alpha: 1.0)
         
-        renderer = Renderer(view: mtkView)
+        renderer = Renderer(device: mtkView.device!, imageName: "hero.jpg")
         mtkView.delegate = renderer
         
     }

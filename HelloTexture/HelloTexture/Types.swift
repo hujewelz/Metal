@@ -11,6 +11,7 @@ import simd
 struct Vertex {
     let position: vector_float3
     let color: vector_float4
+    let texture: vector_float2
 }
 
 enum VertexInputIndex {
