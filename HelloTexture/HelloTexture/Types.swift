@@ -14,6 +14,6 @@ struct Vertex {
     let texture: vector_float2
 }
 
-enum VertexInputIndex {
-    
+struct ModelConstants {
+    var modelViewMatrix = matrix_identity_float4x4
 }

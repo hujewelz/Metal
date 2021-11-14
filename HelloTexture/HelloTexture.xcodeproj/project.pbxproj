@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		500D0E66273FF5D4008CD7B0 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500D0E65273FF5D4008CD7B0 /* Math.swift */; };
 		C2BA3180273DFD2F009A2FF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA317F273DFD2F009A2FF7 /* AppDelegate.swift */; };
 		C2BA3182273DFD2F009A2FF7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA3181273DFD2F009A2FF7 /* ViewController.swift */; };
 		C2BA3184273DFD31009A2FF7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2BA3183273DFD31009A2FF7 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		500D0E65273FF5D4008CD7B0 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		C2BA317C273DFD2F009A2FF7 /* HelloTexture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloTexture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2BA317F273DFD2F009A2FF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2BA3181273DFD2F009A2FF7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				C2BA3181273DFD2F009A2FF7 /* ViewController.swift */,
 				C2BA318E273DFE4A009A2FF7 /* Renderer.swift */,
 				C2BA3190273DFFCC009A2FF7 /* Types.swift */,
+				500D0E65273FF5D4008CD7B0 /* Math.swift */,
 				C2BA3183273DFD31009A2FF7 /* Assets.xcassets */,
 				C2BA3185273DFD31009A2FF7 /* Main.storyboard */,
 				C2BA3188273DFD31009A2FF7 /* HelloTexture.entitlements */,
@@ -158,6 +161,7 @@
 				C2BA3182273DFD2F009A2FF7 /* ViewController.swift in Sources */,
 				C2BA3195273E0AB4009A2FF7 /* Texturable.swift in Sources */,
 				C2BA318F273DFE4A009A2FF7 /* Renderer.swift in Sources */,
+				500D0E66273FF5D4008CD7B0 /* Math.swift in Sources */,
 				C2BA3180273DFD2F009A2FF7 /* AppDelegate.swift in Sources */,
 				C2BA3193273E0503009A2FF7 /* Shader.metal in Sources */,
 				C2BA3191273DFFCC009A2FF7 /* Types.swift in Sources */,

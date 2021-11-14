@@ -8,6 +8,11 @@
 import Foundation
 import MetalKit
 
+/**
+        Model Matrix        View Matrix   Projection Matrix
+ Local Space ===> World Space ===> View Space ===> Clip Space
+ */
+
 class Renderer: NSObject {
     
     let commandQueue: MTLCommandQueue
@@ -21,6 +26,8 @@ class Renderer: NSObject {
     var textureBuffer: MTLBuffer?
     
     var texture: MTLTexture?
+    
+    var modelConstants = ModelConstants()
     
     init(device: MTLDevice, imageName: String? = nil) {
         self.device = device
@@ -122,10 +129,17 @@ extension Renderer: MTKViewDelegate {
         let commondBuffer = commandQueue.makeCommandBuffer()
         let renderEncoder = commondBuffer?.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
         
+        var modelMatrix = matrix_float4x4(scaleX: 0.5, y: 0.5, z: 0.5)
+        let viewMatrix = matrix_float4x4(translationX: 0, y: 0.5, z: 0)
+        modelMatrix = matrix_multiply(viewMatrix, modelMatrix)
+        
+        modelConstants.modelViewMatrix = modelMatrix
+        
         renderEncoder?.setRenderPipelineState(pipelineState)
         renderEncoder?.setFragmentSamplerState(samplerState, index: 0)
         
         renderEncoder?.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+        renderEncoder?.setVertexBytes(&modelConstants, length: MemoryLayout<ModelConstants>.stride, index: 1)
         renderEncoder?.setFragmentTexture(texture, index: 0)
         renderEncoder?.drawIndexedPrimitives(type: .triangle,
                                              indexCount: indices.count,
