@@ -48,3 +48,18 @@ fragment half4 textureShader(VertexOut in [[ stage_in ]],
     float4 color = texture.sample(sampler2d, in.texuteCoordinate);
     return half4(color);
 }
+
+
+constant half3 rec709Luma = half3(0.2126, 0.7152, 0.0722);
+
+kernel void grayscaleTexture(texture2d<half, access::read> inTexture [[ texture(0) ]],
+                           texture2d<half, access::write> outTexture [[ texture(1) ]],
+                           uint2 gid [[ thread_position_in_grid ]]) {
+    if (gid.x >= outTexture.get_width() || gid.y >= outTexture.get_height()) {
+        // Return early if the pixel is out of bounds
+        return;
+    }
+    half4 inColor = inTexture.read(gid);
+    half gray = dot(inColor.rgb, rec709Luma);
+    outTexture.write(half4(gray, gray, gray, 1.0), gid);
+}

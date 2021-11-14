@@ -18,16 +18,22 @@ class Renderer: NSObject {
     let commandQueue: MTLCommandQueue
     
     var pipepineState: MTLRenderPipelineState?
+    var computePipelineState: MTLComputePipelineState?
     
     let device: MTLDevice
     
     var vertexBuffer: MTLBuffer?
     var indexBuffer: MTLBuffer?
-    var textureBuffer: MTLBuffer?
     
     var texture: MTLTexture?
+    var outTexture: MTLTexture?
     
     var modelConstants = ModelConstants()
+    
+    var threadsgroupPerGrid = MTLSize(width: 0, height: 0, depth: 1)
+    var threaddGroupSize = MTLSize(width: 16, height: 16, depth: 1)
+    var threads = MTLSize(width: 0, height: 0, depth: 1)
+    
     
     init(device: MTLDevice, imageName: String? = nil) {
         self.device = device
@@ -36,6 +42,20 @@ class Renderer: NSObject {
         if let imageName = imageName, let texture = makeTexture(device: device, imageName: imageName) {
             self.texture = texture
             fragmentShaderName = "textureShader"
+            
+            let textureDescriptor = MTLTextureDescriptor()
+            textureDescriptor.textureType = .type2D
+            textureDescriptor.pixelFormat = .bgra8Unorm
+            textureDescriptor.width = texture.width
+            textureDescriptor.height = texture.height
+            textureDescriptor.usage = [.shaderWrite, .shaderRead]
+            
+            outTexture = device.makeTexture(descriptor: textureDescriptor)
+            
+            threadsgroupPerGrid.width = (texture.width + threaddGroupSize.width - 1) / threaddGroupSize.width
+            threadsgroupPerGrid.height = (texture.height + threaddGroupSize.height - 1) / threaddGroupSize.height
+            threads.width = texture.width
+            threads.height = texture.height
         }
         buildModel()
         buildSamplerState()
@@ -105,6 +125,15 @@ class Renderer: NSObject {
         } catch let error {
             print(error)
         }
+        
+        if let computeFunction = defaultLibrary?.makeFunction(name: "grayscaleTexture") {
+            do {
+                computePipelineState = try device.makeComputePipelineState(function: computeFunction)
+            } catch let error {
+                print(error)
+            }
+        }
+        
     }
     
     private var samplerState: MTLSamplerState?
@@ -123,11 +152,21 @@ extension Renderer: MTKViewDelegate {
     
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         guard let indexBuffer = indexBuffer,
+              let computePipelineState = computePipelineState,
               let pipelineState = pipepineState,
               let renderPassDescriptor = view.currentRenderPassDescriptor,
               let drawable = view.currentDrawable else { return }
-        let commondBuffer = commandQueue.makeCommandBuffer()
-        let renderEncoder = commondBuffer?.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
+        let commandBuffer = commandQueue.makeCommandBuffer()
+        
+        let computeEncoder = commandBuffer?.makeComputeCommandEncoder()
+        computeEncoder?.setComputePipelineState(computePipelineState)
+        computeEncoder?.setTexture(texture, index: 0)
+        computeEncoder?.setTexture(outTexture, index: 1)
+        computeEncoder?.dispatchThreadgroups(threadsgroupPerGrid, threadsPerThreadgroup: threaddGroupSize)
+//        computeEncoder?.dispatchThreads(threads, threadsPerThreadgroup: threaddGroupSize)
+        computeEncoder?.endEncoding()
+        
+        let renderEncoder = commandBuffer?.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
         
         var modelMatrix = matrix_float4x4(scaleX: 0.5, y: 0.5, z: 0.5)
         let viewMatrix = matrix_float4x4(translationX: 0, y: 0.5, z: 0)
@@ -140,7 +179,7 @@ extension Renderer: MTKViewDelegate {
         
         renderEncoder?.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         renderEncoder?.setVertexBytes(&modelConstants, length: MemoryLayout<ModelConstants>.stride, index: 1)
-        renderEncoder?.setFragmentTexture(texture, index: 0)
+        renderEncoder?.setFragmentTexture(outTexture, index: 0)
         renderEncoder?.drawIndexedPrimitives(type: .triangle,
                                              indexCount: indices.count,
                                              indexType: .uint16,
@@ -149,8 +188,8 @@ extension Renderer: MTKViewDelegate {
                                              instanceCount: 1)
         
         renderEncoder?.endEncoding()
-        commondBuffer?.present(drawable)
-        commondBuffer?.commit()
+        commandBuffer?.present(drawable)
+        commandBuffer?.commit()
     }
 }
 
