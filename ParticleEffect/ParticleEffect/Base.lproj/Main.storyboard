@@ -706,13 +706,79 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="ParticleEffect" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl" customClass="MyView" customModule="ParticleEffect" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="550" height="368"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ge9-J1-bsk">
+                                <rect key="frame" x="100" y="327" width="350" height="21"/>
+                                <subviews>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="45w-OG-276" userLabel="Container">
+                                        <rect key="frame" x="0.0" y="0.0" width="188" height="21"/>
+                                        <subviews>
+                                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WSz-mb-fvh">
+                                                <rect key="frame" x="-2" y="-5" width="104" height="28"/>
+                                                <sliderCell key="cell" state="on" alignment="left" maxValue="10000000" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="yua-Gj-rSu"/>
+                                                <connections>
+                                                    <action selector="sliderValueChanged:" target="m2S-Jp-Qdl" id="hwE-IK-wF1"/>
+                                                </connections>
+                                            </slider>
+                                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n9z-ul-XjS">
+                                                <rect key="frame" x="108" y="0.0" width="80" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="4qM-bD-Xsy"/>
+                                                </constraints>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="SNQ-Xa-Wjo">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XkZ-0Z-vbw">
+                                        <rect key="frame" x="197" y="-6" width="160" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Update" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wUe-oR-Dst">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="update:" target="m2S-Jp-Qdl" id="Lwq-jD-HDz"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ge9-J1-bsk" secondAttribute="trailing" constant="100" id="5gi-yO-Op0"/>
+                            <constraint firstItem="ge9-J1-bsk" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="W0H-i0-jC4"/>
+                            <constraint firstItem="ge9-J1-bsk" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="100" id="Wd4-8R-1GQ"/>
+                            <constraint firstItem="ge9-J1-bsk" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="waz-bl-oep"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="hslider" destination="WSz-mb-fvh" id="za5-pv-uwV"/>
+                            <outlet property="texField" destination="n9z-ul-XjS" id="sf2-55-wGe"/>
+                        </connections>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="784"/>
         </scene>
     </scenes>
 </document>
